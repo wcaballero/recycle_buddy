@@ -7,9 +7,6 @@ const app = express();
 
 
 /* ------------------------------Routes----------------------------- */
-app.get('/', function(req, res) {
-    console.log('Testing / Path');
-});
 
 /* Returns the current user logged in */
 app.get('/api/current_user', function(req, res) {
@@ -22,5 +19,5 @@ app.post('/login', function(req, res) {
 });
 
 /* -----------------------------/Routes----------------------------- */
-
+app.use(express.static('public'));
 app.listen(5000);
