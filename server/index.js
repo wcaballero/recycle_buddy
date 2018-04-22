@@ -30,7 +30,8 @@ app.post('/api/recycle', async function(req, res){
         console.log("Body Score: ", req.body.score);
         let updatedScore = parseInt(UserModel.score) + parseInt(req.body.quantity);
         // Updae DB with new score
-
+        UserModel.score = updatedScore
+        await UserModel.save();
         resObject.score = updatedScore;
     }
     console.log(resObject);
