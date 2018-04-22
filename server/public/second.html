@@ -25,7 +25,18 @@
         padding: 0;
       }*/
     </style>
-
+    <script>
+  function myfunc(){
+    var x= localStorage.getItem("Name");
+    var y= localStorage.getItem("Score");
+    document.getElementById("sc").innerHTML = y;
+    document.getElementById("uname").innerHTML = x;
+    console.log(x);
+    console.log(y);
+    //window.onload = alert(localStorage.getItem("Name"));
+    //window.onload = alert(localStorage.getItem("Score"));
+  }
+    </script>
     <script>
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
@@ -74,7 +85,7 @@
       }
     </script>
   </head>
-  <body>
+  <body onload="myfunc()">
 
 
 
@@ -95,20 +106,13 @@ document.getElementById("p").innerHTML = score
 }
 
 </script>
-<script>
-var x= localStorage.getItem("Name");
-var y= localStorage.getItem("Score");
-console.log(x);
-console.log(y);
-//window.onload = alert(localStorage.getItem("Name"));
-//window.onload = alert(localStorage.getItem("Score"));
-</script>
+
     <section id="two" class="main style2">
 
       <div class="container">
         <div class="row 150%">
           <div class="6u 12u$(medium)">
-            <p id="p">0</p>
+            <p id="sc"><span id="sc"></span></p>
             <ul class="major-icons" style="text-align: right">
 
               <li><button onclick="add()">Recycle now</button></span></li>
@@ -118,7 +122,9 @@ console.log(y);
           <div class="6u$ 12u$(medium)">
 
             <header class="major">
-              <h2>Welcome USER_NAME!<br />
+
+              <h2 >Welcome, <span id="uname"></span>
+                <br>
               "Every day is a good day"<br />
                - unknown</h2>
             </header>

@@ -247,7 +247,7 @@ function Registerfunction() {
 								localStorage.setItem("Name",data.fName);
 								localStorage.setItem("Score",data.score);
 								console.log(data);
-								//window.location.href = "/second.html";
+								window.location.href = "/second.html";
 							} else {
 								console.log("False data login");
 								login_false();
@@ -267,8 +267,6 @@ function Registerfunction() {
 			</script>
 			<!-- Script to Register User -->
 			<script>
-				let fName = $("#fname");
-				let lName = $("#lname");
 				let username2 = $("#username2");
 				let password2 = $("#password2");
 				let phone = $("#phone");
@@ -279,14 +277,12 @@ function Registerfunction() {
 					e.preventDefault();
 					console.log("username");
 					console.log(username.val());
-					fName = fName.val();
-					lName = lName.val();
 					user = username2.val();
 					pass = password2.val();
 					phone = phone.val();
 					email = email.val();
-					
-					let data = {fName: fName, lName: lName, username: user, phone: phone, email: email, password: pass};
+
+					let data = {username: user, phone: phone, email: email, password: pass};
 					// data["username"] = user;
 					// data["password"] = pass;
 					console.log("password");

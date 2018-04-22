@@ -25,7 +25,7 @@ app.get('/api/current_user', async function(req, res) {
 app.post('/register', async function(req, res) {
     console.log('From /register: ', req.body);
     const {fName, lName, username, email, password, phone} = req.body
-    
+
     const user = await  User({fName, lName, username, email, password, phone}).save();
     console.log(user);
     const registed = {};
@@ -52,7 +52,8 @@ app.post('/login', async function(req, res) {
         resObject.login = "True";
         resObject.fName = UserModel.fName;
         resObject.score = UserModel.score;
-    } 
+
+    }
     else {
         resObject.login = "False";
     }
