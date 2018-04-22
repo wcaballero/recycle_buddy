@@ -301,6 +301,16 @@ function Registerfunction() {
 						success: function(data) {
 							console.log("Registration was successful.");
 							console.log(data);
+							if (data.registered == "True") {
+								localStorage.setItem("Name",data.fName);
+								localStorage.setItem("Score",data.score);
+								localStorage.setItem("Username", data.username);
+								console.log(data);
+								window.location.href = "/second.html";
+							} else {
+								console.log("False data login");
+								login_false();
+							}
 						},
 						error: function(data) {
 							console.log("An error occurred.");
