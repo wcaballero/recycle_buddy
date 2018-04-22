@@ -12,42 +12,41 @@ mongoose.connect(keys.mongoURI);
 
 const User = mongoose.model('users');
 
-const execPHP = require('./services/execphp.js')();
-
-execPHP.phpFolder = './phpFolder';
-
-// app.use('*.php',function(request,response,next) {
-// 	execPHP.parseFile(request.originalUrl,function(phpResult) {
-// 		response.write(phpResult);
-// 		response.end();
-// 	});
-// });
-
 /* ------------------------------Routes----------------------------- */
 
 /* Returns the current user logged in */
-app.get('/api/current_user', function(req, res) {
-
+app.get('/api/current_user', async function(req, res) {
+    console.log("Get current User");
+    const user = await fetchUser(req.body.user);
+    res.send(user);
 });
 
 /* Saves the User to the DB */
 app.post('/register', async function(req, res) {
     console.log('From /register: ', req.body);
-    const {username, phone, email, password} = req.body
+    const {fName, lName, username, email, password, phone} = req.body
     
-    const user = await  User({username, phone, email, password}).save();
+    const user = await  User({fName, lName, username, email, password, phone}).save();
     console.log(user);
-    const other = {registed: "Yes"};
-    res.send(other);
+    const registed = {};
+    if (user != null) {
+        registed.registered = "True";
+    }
+    else {
+        registered.registered = "False";
+    }
+    res.send(registed);
 });
 
 /* Checks if User exists in db */
 app.post('/login', async function(req, res) {
-    console.log('From /login: ', req.body);
-    const user = await User.findOne({username: req.body.username});
-    console.log("User: ", user);
+    console.log("LOGIN: ", req.body);
+    const pass = req.body.password;
+    const user = req.body.username;
+    const UserModel = await User.findOne({username: user});
+
     const resObject = {};
-    if (user) {
+    if (UserModel.password == pass && UserModel != null) {
         resObject.login = "True";
     } 
     else {
@@ -56,6 +55,16 @@ app.post('/login', async function(req, res) {
     // Response object ex: {login: False}
     res.send(resObject);
 });
+
+async function fetchUser(getUsername) {
+    const user = await User.findOne({username: getUsername});
+    console.log("User: ", user);
+    const resObject = {};
+    if (user) {
+        return user;
+    }
+    return null;
+}
 /* -----------------------------/Routes----------------------------- */
 
 app.use(express.static('public'));
