@@ -149,7 +149,7 @@ function Registerfunction() {
 }
 					</script>
 
-					<form id="login-form" action="send.php" method="post" role="form" style="display: block;">
+					<form id="login-form" action="/login" method="post" role="form" style="display: block;">
 						<div class="form-group">
 							<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
 						</div>
@@ -555,6 +555,21 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+
+			<script>
+				let username = $("#username").val();
+				let password = $("#password").val();
+				console.log("username: ", username);
+				$("#login-submit").click(function(){
+					$.post("localhost:5000/login", {
+						username: username,
+						password: password
+					},
+					function(data, status){
+						alert("Data: " + data + "\nStatus: " + status);
+					});
+				});
+			</script>
 
 	</body>
 </html>
