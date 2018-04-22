@@ -246,8 +246,9 @@ function Registerfunction() {
 							if (data.login == "True") {
 								localStorage.setItem("Name",data.fName);
 								localStorage.setItem("Score",data.score);
+								localStorage.setItem("Username", data.username);
 								console.log(data);
-								//window.location.href = "/second.html";
+								window.location.href = "/second.html";
 							} else {
 								console.log("False data login");
 								login_false();

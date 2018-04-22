@@ -21,6 +21,20 @@ app.get('/api/current_user', async function(req, res) {
     res.send(user);
 });
 
+app.post('/api/recycle', async function(req, res){
+    console.log(req.body);
+    const UserModel = await User.findOne({username: req.body.username});
+    const resObject = {}
+    if (UserModel) {
+        console.log("Model score: ", UserModel.score);
+        console.log("Body Score: ", req.body.score);
+        let updatedScore = parseInt(UserModel.score) + parseInt(req.body.quantity);
+        resObject.score = updatedScore;
+    } 
+    console.log(resObject);
+    res.send(JSON.stringify(resObject));
+});
+
 /* Saves the User to the DB */
 app.post('/register', async function(req, res) {
     console.log('From /register: ', req.body);
@@ -52,6 +66,7 @@ app.post('/login', async function(req, res) {
         resObject.login = "True";
         resObject.fName = UserModel.fName;
         resObject.score = UserModel.score;
+        resObject.username = UserModel.username;
     } 
     else {
         resObject.login = "False";

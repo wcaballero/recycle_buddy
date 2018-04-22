@@ -25,7 +25,18 @@
         padding: 0;
       }*/
     </style>
-
+    <script>
+  function myfunc(){
+    var x= localStorage.getItem("Name");
+    var y= localStorage.getItem("Score");
+    document.getElementById("sc").innerHTML = "Score: " + y;
+    document.getElementById("uname").innerHTML =  x;
+    console.log(x);
+    console.log(y);
+    //window.onload = alert(localStorage.getItem("Name"));
+    //window.onload = alert(localStorage.getItem("Score"));
+  }
+    </script>
     <script>
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
@@ -64,6 +75,7 @@
         var placeLoc = place.geometry.location;
         var marker = new google.maps.Marker({
           map: map,
+          icon: "./recycle1.png",
           position: place.geometry.location
         });
 
@@ -74,7 +86,7 @@
       }
     </script>
   </head>
-  <body>
+  <body onload="myfunc()">
 
 
 
@@ -95,30 +107,39 @@ document.getElementById("p").innerHTML = score
 }
 
 </script>
-<script>
-var x= localStorage.getItem("Name");
-var y= localStorage.getItem("Score");
-console.log(x);
-console.log(y);
-//window.onload = alert(localStorage.getItem("Name"));
-//window.onload = alert(localStorage.getItem("Score"));
-</script>
+
     <section id="two" class="main style2">
 
       <div class="container">
         <div class="row 150%">
           <div class="6u 12u$(medium)">
-            <p id="p">0</p>
-            <ul class="major-icons" style="text-align: right">
-
-              <li><button onclick="add()">Recycle now</button></span></li>
-              <div id="map"></div>
-            </ul>
+            <p id="sc"><span id="sc"></span></p>
+            <form action="/api/recycle" method="POST" id="recyle-form" style="display: block">
+              <div class="form-group">
+                  <label for="type" style="text-align: left; color: white" tabindex="1">Item Type</label>
+                  <input type="text" id="material-type" tabindex="1" class="form-control" placeholder="type" value="Plastic">
+                </div>
+                <div class="form-group" style="margin-top: 5px">
+                  <label for="quantity" style="text-align: left; color: white" tabindex="1">How many bottles are you recycling?</label>
+                  <input type="text" id="recycle-quantity" tabindex="1" class="form-control" placeholder="7">
+                </div>
+                <div class="form-control">
+                  <br>
+                  <textarea type="text" class="form-control" placeholder="comments" style="color: white" ></textarea>
+                </div>
+                <div class="form-control" style="margin-top: 2%">
+                  <button type="submit" class="major-icons" style="text-align: right">Recycle now</button>
+                </div>
+            </form>
           </div>
+
+          <div id="map" style="margin-top: 5%"></div>
           <div class="6u$ 12u$(medium)">
 
             <header class="major">
-              <h2>Welcome USER_NAME!<br />
+
+              <h2 >Welcome, <span id="uname"></span>
+                <br>
               "Every day is a good day"<br />
                - unknown</h2>
             </header>
@@ -129,10 +150,42 @@ console.log(y);
           </div>
         </div>
       </div>
-
-
-
     </section>
 
+    <!-- Script for updating the user with the new recycle score -->
+    <script>
+      let type = $("#material-type");
+				let quantity = $("#recycle-quantity");
+        let recycleForm= $("#recyle-form");
+        let Username = localStorage.getItem("Username");
+        let htmlScore = 
+
+				recycleForm.submit(function(e){
+					e.preventDefault();
+					typeVal = type.val();
+					quantityVal = quantity.val();
+					let data = {type: typeVal, quantity: quantityVal, username: Username};
+					console.log("Data from Front End");
+					console.log(data);
+					$.ajax({
+						type: recycleForm.attr('method'),
+						url: recycleForm.attr('action'),
+						data: JSON.stringify(data),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+						success: function(data) {
+							console.log("Recycle Submission was successful.");
+              console.log(data);
+              const newScore = data.score;
+              localStorage.setItem("Score", newScore);
+              document.getElementById("sc").innerHTML = "Score: " + newScore;
+						},
+						error: function(data) {
+							console.log("An error occurred.");
+							console.log(data);
+						}
+					});
+				});
+    </script>
   </body>
 </html>
