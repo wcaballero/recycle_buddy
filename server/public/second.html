@@ -115,18 +115,33 @@ document.getElementById("p").innerHTML = score
           <div class="6u 12u$(medium)">
             <p id="sc"><span id="sc"></span></p>
             <form action="/api/recycle" method="POST" id="recyle-form" style="display: block">
-              <div class="form-group">
+              <!-- <div class="form-group">
                   <label for="type" style="text-align: left; color: white" tabindex="1">Item Type</label>
                   <input type="text" id="material-type" tabindex="1" class="form-control" placeholder="type" value="Plastic">
-                </div>
+                </div> -->
+
+
+                <select id="mysel" name="mysel">
+                    <option value="Plastic" style="color: #000;" onClick=selected() >Plastic</option>
+                    <option value="Cardboard" style="color: #000;" onClick=selected()>Cardboard</option>
+                    <option value="Aluminium" style="color: #000;" onClick=selected()>Aluminium</option>
+                </select>
+
+
                 <div class="form-group" style="margin-top: 5px">
                   <label for="quantity" style="text-align: left; color: white" tabindex="1">How many bottles are you recycling?</label>
-                  <input type="text" id="recycle-quantity" tabindex="1" class="form-control" placeholder="7">
+                  <input type="text" id="recycle-quantity" tabindex="1" class="form-control" placeholder="Enter a Number">
                 </div>
                 <div class="form-control">
                   <br>
                   <textarea type="text" class="form-control" placeholder="comments" style="color: white" ></textarea>
                 </div>
+
+
+                
+
+
+
                 <div class="form-control" style="margin-top: 2%">
                   <button type="submit" class="major-icons" style="text-align: right">Recycle now</button>
                 </div>
@@ -154,17 +169,32 @@ document.getElementById("p").innerHTML = score
 
     <!-- Script for updating the user with the new recycle score -->
     <script>
+      function selected() {
+        
+      }
       let type = $("#material-type");
 				let quantity = $("#recycle-quantity");
         let recycleForm= $("#recyle-form");
         let Username = localStorage.getItem("Username");
-        let htmlScore = 
+        let dropDown = document.getElementById("mysel");
+        dropDown.options[dropDown.options.selectedIndex].selected = true;
 
 				recycleForm.submit(function(e){
 					e.preventDefault();
-					typeVal = type.val();
-					quantityVal = quantity.val();
-					let data = {type: typeVal, quantity: quantityVal, username: Username};
+					// typeVal = type.val();
+          quantityVal = quantity.val();
+          const type = dropDown.value;
+          if (type == "Plastic") {
+            quantityVal = quantityVal * 7;
+          }
+          else if (type == "Cardboard") {
+            quantityVal = quantityVal * 10;
+          } 
+          else {
+            quantityVal = quantityVal * 15;
+          }
+          let data = {type: type, quantity: quantityVal, username: Username};
+          
 					console.log("Data from Front End");
 					console.log(data);
 					$.ajax({
