@@ -29,8 +29,10 @@ app.post('/api/recycle', async function(req, res){
         console.log("Model score: ", UserModel.score);
         console.log("Body Score: ", req.body.score);
         let updatedScore = parseInt(UserModel.score) + parseInt(req.body.quantity);
+        // Updae DB with new score
+
         resObject.score = updatedScore;
-    } 
+    }
     console.log(resObject);
     res.send(JSON.stringify(resObject));
 });
@@ -39,7 +41,7 @@ app.post('/api/recycle', async function(req, res){
 app.post('/register', async function(req, res) {
     console.log('From /register: ', req.body);
     const {fName, lName, username, email, password, phone} = req.body
-    
+
     const user = await  User({fName, lName, username, email, password, phone}).save();
     console.log(user);
     const registed = {};
@@ -67,7 +69,7 @@ app.post('/login', async function(req, res) {
         resObject.fName = UserModel.fName;
         resObject.score = UserModel.score;
         resObject.username = UserModel.username;
-    } 
+    }
     else {
         resObject.login = "False";
     }

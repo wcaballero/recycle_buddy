@@ -18,6 +18,10 @@
       }
 
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
   function myfunc(){
     var x= localStorage.getItem("Name");
@@ -106,24 +110,84 @@ document.getElementById("p").innerHTML = score
       <div class="container">
         <div class="row 150%">
           <div class="6u 12u$(medium)">
-            <p id="sc"><span id="sc"></span></p>
+            <p id="sc"><span id="5sc"></span></p>
+              <div class="col-md-10">
+
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                    <span class="sr-only">70% Complete</span>
+                  </div>
+                </div>
+              </div>
+
+
+
             <form action="/api/recycle" method="POST" id="recyle-form" style="display: block">
+              <select id="mysel">
               <div class="form-group">
-                  <label for="type" style="text-align: left; color: white" tabindex="1">Item Type</label>
-                  <input type="text" id="material-type" tabindex="1" class="form-control" placeholder="type" value="Plastic">
+
+                <option value="Plastic" style="color: #000;">Plastic</option>
                 </div>
                 <div class="form-group" style="margin-top: 5px">
-                  <label for="quantity" style="text-align: left; color: white" tabindex="1">How many bottles are you recycling?</label>
-                  <input type="text" id="recycle-quantity" tabindex="1" class="form-control" placeholder="7">
+                  <option value="card" style="color: #000;" >Cardboard</option>
                 </div>
                 <div class="form-control">
                   <br>
-                  <textarea type="text" class="form-control" placeholder="comments" style="color: white" ></textarea>
+                  <option value="Alu" style="color: #000;x">Aluminium</option>
                 </div>
+                </select>
                 <div class="form-control" style="margin-top: 2%">
                   <button type="submit" class="major-icons" style="text-align: right">Recycle now</button>
                 </div>
+
             </form>
+            <script>
+
+    				let type = $("#mysel");
+    				let loginForm= $("#recycle-form");
+
+    				loginForm.submit(function(e){
+    					e.preventDefault();
+    					console.log("username");
+    					console.log(material.val());
+    					user = username.val();
+    					pass = password.val();
+
+
+    					let data = {};
+    					data["material"] = type.val();
+
+    					console.log(data);
+    					$.ajax({
+    						type: loginForm.attr('method'),
+    						url: loginForm.attr('action'),
+    						data: JSON.stringify(data),
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json',
+    						success: function(data) {
+    							console.log("Submission was successful.");
+    							console.log(data);
+    							/* User exists so show him another page
+    							if (data.login == "True") {
+    								localStorage.setItem("Name",data.fName);
+    								localStorage.setItem("Score",data.score);
+    								localStorage.setItem("Username", data.username);
+    								console.log(data);
+    								window.location.href = "/second.html";
+    							} else {
+    								console.log("False data login");
+    								login_false();
+    							}*/
+    						},
+    						error: function(data) {
+    							console.log("An error occurred.");
+    							console.log(data);
+    						}
+    					});
+    				});
+
+
+            </script>
           </div>
 
           <div id="map" style="margin-top: 5%"></div>
@@ -147,11 +211,11 @@ document.getElementById("p").innerHTML = score
 
     <!-- Script for updating the user with the new recycle score -->
     <script>
-      let type = $("#material-type");
+      /*let type = $("#material-type");
 				let quantity = $("#recycle-quantity");
         let recycleForm= $("#recyle-form");
         let Username = localStorage.getItem("Username");
-        let htmlScore = 
+        let htmlScore =
 
 				recycleForm.submit(function(e){
 					e.preventDefault();
@@ -178,7 +242,7 @@ document.getElementById("p").innerHTML = score
 							console.log(data);
 						}
 					});
-				});
+				});*/
     </script>
   </body>
 </html>
