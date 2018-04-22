@@ -17,7 +17,7 @@ app.get('/api/current_user', function(req, res) {
 });
 
 /* Saves the User to the DB */
-app.post('/login', async function(req, res) {
+app.post('http://54.152.210.238/login', async function(req, res) {
     console.log('From /login: ', req);
     const user = await new User({name: 'Devony'}).save();
 
