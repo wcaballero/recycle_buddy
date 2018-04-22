@@ -44,16 +44,17 @@ app.post('/register', async function(req, res) {
     
     const user = await  User({fName, lName, username, email, password, phone}).save();
     console.log(user);
-    const registed = {};
+    const registered = {};
     if (user != null) {
-        registed.registered = "True";
-        registed.fName = user.fName;
-        registed.score = user.score;
+        registered.registered = "True";
+        registered.fName = user.fName;
+        registered.score = user.score;
+        registered.username = user.username;
     }
     else {
         registered.registered = "False";
     }
-    res.send(registed);
+    res.send(registered);
 });
 
 /* Checks if User exists in db */

@@ -209,6 +209,11 @@ document.getElementById("p").innerHTML = score
               const newScore = data.score;
               localStorage.setItem("Score", newScore);
               document.getElementById("sc").innerHTML = "Score: " + newScore;
+              setTimeout(function(){ alert("Thank you for Recycling!"); }, 1000);
+              if (newScore > 200) {
+                alert("Congrats you will receive a $20 Amazon gift via email!");
+                document.getElementById("sc").innerHTML = "Score: 0" ;
+              }
 						},
 						error: function(data) {
 							console.log("An error occurred.");
