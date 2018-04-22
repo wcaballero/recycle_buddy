@@ -31,6 +31,8 @@ app.post('/register', async function(req, res) {
     const registed = {};
     if (user != null) {
         registed.registered = "True";
+        registed.fName = user.fName;
+        registed.score = user.score;
     }
     else {
         registered.registered = "False";
@@ -44,10 +46,12 @@ app.post('/login', async function(req, res) {
     const pass = req.body.password;
     const user = req.body.username;
     const UserModel = await User.findOne({username: user});
-
+    console.log("LOGIN USER: ", UserModel);
     const resObject = {};
     if (UserModel.password == pass && UserModel != null) {
         resObject.login = "True";
+        resObject.fName = UserModel.fName;
+        resObject.score = UserModel.score;
     } 
     else {
         resObject.login = "False";
