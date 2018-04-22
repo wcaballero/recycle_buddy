@@ -47,7 +47,7 @@
 				</div>
 			</section>
 
-		
+
 
 		<!-- Three -->
 			<section id="three" class="main style1 special">
@@ -244,7 +244,10 @@ function Registerfunction() {
 							console.log(data);
 							/* User exists so show him another page */
 							if (data.login == "True") {
-								window.location.href = "/second.html";
+								localStorage.setItem("Name",data.fName);
+								localStorage.setItem("Score",data.score);
+								console.log(data);
+								//window.location.href = "/second.html";
 							} else {
 								console.log("False data login");
 								login_false();
@@ -256,6 +259,7 @@ function Registerfunction() {
 						}
 					});
 				});
+
 				function login_false(){
 					var x=document.getElementById("errors");
 					x.style.display="block";
