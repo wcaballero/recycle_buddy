@@ -5,10 +5,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
 </head>
 <body>
     <h1>Second Page</h1>
+    <form method="POST" action="http://localhost:5000/login" id="login-form">
+        <!-- NAME -->
+        <div id="name-group" class="form-group">
+                <label for="name">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Henry Pym">
+                <!-- errors will go here -->
+            </div>
+    
+            <!-- EMAIL -->
+            <div id="email-group" class="form-group">
+                <label for="password">Password</label>
+                <input type="text" class="form-control" id="password">
+                <!-- errors will go here -->
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit <span class="fa fa-arrow-right"></span></button>
+    </form>
+    <script>
+        let username = $("#username");
+				let password = $("#password");
+				let loginForm= $("#login-form");
+				
+				loginForm.submit(function(e){
+					e.preventDefault();
+					console.log("username");
+					console.log(username.val());
+					user = username.val();
+					pass = password.val();
+					
+					
+					let data = {};
+					data["username"] = user;
+					data["password"] = pass;
+					console.log("password");
+                    console.log(data);
+                    var arr = { City: 'Moscow', Age: 25 };
+					$.ajax({
+						type: "POST",
+						url: 'http://localhost:5000/login',
+						data: JSON.stringify(arr),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        async: false,
+						success: function(data) {
+							console.log("Submission was successful.");
+							console.log(data);
+						},
+						error: function(data) {
+							console.log("An error occurred.");
+							console.log(data);
+						}
+					});
+				});
+    </script>
 </body>
 </html>

@@ -3,7 +3,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
+const bodyParser = require('body-parser');
 require('./models/User');
+app.use(bodyParser.json());
+
 /* Connect to db */
 mongoose.connect(keys.mongoURI);
 
@@ -29,7 +32,7 @@ app.get('/api/current_user', function(req, res) {
 
 /* Saves the User to the DB */
 app.post('/register', async function(req, res) {
-    console.log('From /register: ', req.headers.register);
+    console.log('From /register: ', req.body);
     // const user = await  User.findbyId({name: 'Devony'}).save();
 
     const resObject = {
@@ -40,8 +43,8 @@ app.post('/register', async function(req, res) {
 
 /* Checks if User exists in db */
 app.post('/login', async function(req, res) {
-    console.log('From /login: ', req);
-    const user = await new User({name: 'Devony'}).save();
+    console.log('From /login: ', req.body);
+    // const user = await new User({name: 'Devony'}).save();
 
     // Response object ex: {login: False}
     const resObject = {
