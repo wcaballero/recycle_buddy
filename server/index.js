@@ -33,23 +33,27 @@ app.get('/api/current_user', function(req, res) {
 /* Saves the User to the DB */
 app.post('/register', async function(req, res) {
     console.log('From /register: ', req.body);
-    // const user = await  User.findbyId({name: 'Devony'}).save();
-
-    const resObject = {
-        login: "False"
-    }
-    res.send(resObject);
+    const {username, phone, email, password} = req.body
+    
+    const user = await  User({username, phone, email, password}).save();
+    console.log(user);
+    const other = {registed: "Yes"};
+    res.send(other);
 });
 
 /* Checks if User exists in db */
 app.post('/login', async function(req, res) {
     console.log('From /login: ', req.body);
-    // const user = await new User({name: 'Devony'}).save();
-
-    // Response object ex: {login: False}
-    const resObject = {
-        login: "False"
+    const user = await User.findOne({username: req.body.username});
+    console.log("User: ", user);
+    const resObject = {};
+    if (user) {
+        resObject.login = "True";
+    } 
+    else {
+        resObject.login = "False";
     }
+    // Response object ex: {login: False}
     res.send(resObject);
 });
 /* -----------------------------/Routes----------------------------- */

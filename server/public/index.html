@@ -177,7 +177,7 @@ function Registerfunction() {
 							</div>
 						</div> -->
 					</form>
-					<form id="register-form" action="register.php" method="post" role="form" style="display: none;">
+					<form id="register-form" action="/register" method="post" role="form" style="display: none;">
 						<div class="form-group">
 							<input type="text" name="fname" id="fname" tabindex="1" class="form-control" placeholder="First Name" value="">
 						</div>
@@ -185,23 +185,26 @@ function Registerfunction() {
 							<input type="text" name="lname" id="lname" tabindex="1" class="form-control" placeholder="Last Name" value="">
 						</div>
 						<div class="form-group">
-							<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+								<input type="text" name="username2" id="username2" tabindex="1" class="form-control" placeholder="username">
+							</div>
+						<div class="form-group">
+							<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address">
 						</div>
 						<div class="form-group">
 							<input type="password" name="password" id="password2" tabindex="2" class="form-control" placeholder="Password">
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
 						</div>
 						<div class="form-group">
 							<input type="text" name="ssn" id="ssn" tabindex="1" class="form-control" placeholder="SSN" value="">
-						</div>
+						</div> -->
 						<div class="form-group">
 							<input type="text" name="phone" id="phone" tabindex="1" class="form-control" placeholder="Phone" value="">
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<input type="text" name="address" id="address" tabindex="1" class="form-control" placeholder="Address" value="">
-						</div>
+						</div> -->
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-6 col-sm-offset-3">
@@ -555,7 +558,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
-
+			<!-- Script to Log user in  -->
 			<script>
 				let username = $("#username");
 				let password = $("#password1");
@@ -582,6 +585,51 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
                         dataType: 'json',
 						success: function(data) {
 							console.log("Submission was successful.");
+							console.log(data);
+							/* User exists so show him another page */
+							if (data.login == "True") {
+								window.location.href = "/second.html";
+							} else {
+								console.log("False data login");
+							}
+						},
+						error: function(data) {
+							console.log("An error occurred.");
+							console.log(data);
+						}
+					});
+				});
+			</script>
+			<!-- Script to Register User -->
+			<script>
+				let username2 = $("#username2");
+				let password2 = $("#password2");
+				let phone = $("#phone");
+				let email = $("#email");
+				let registerForm= $("#register-form");
+				
+				registerForm.submit(function(e){
+					e.preventDefault();
+					console.log("username");
+					console.log(username.val());
+					user = username2.val();
+					pass = password2.val();
+					phone = phone.val();
+					email = email.val();
+					
+					let data = {username: user, phone: phone, email: email, password: pass};
+					// data["username"] = user;
+					// data["password"] = pass;
+					console.log("password");
+					console.log(data);
+					$.ajax({
+						type: registerForm.attr('method'),
+						url: registerForm.attr('action'),
+						data: JSON.stringify(data),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+						success: function(data) {
+							console.log("Registration was successful.");
 							console.log(data);
 						},
 						error: function(data) {
