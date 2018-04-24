@@ -123,15 +123,6 @@ document.getElementById("p").innerHTML = score
 
 
             <form action="/api/recycle" method="POST" id="recyle-form" style="display: block">
-<<<<<<< HEAD
-              <select id="mysel">
-              <div class="form-group">
-
-                <option value="Plastic" style="color: #000;" class="material-type">Plastic</option>
-                </div>
-                <div class="form-group" style="margin-top: 5px">
-                  <option value="card" style="color: #000;"  class="material-type">Cardboard</option>
-=======
               <!-- <div class="form-group">
                   <label for="type" style="text-align: left; color: white" tabindex="1">Item Type</label>
                   <input type="text" id="material-type" tabindex="1" class="form-control" placeholder="type" value="Plastic">
@@ -139,33 +130,15 @@ document.getElementById("p").innerHTML = score
 
 
                 <select id="mysel" name="mysel">
-                    <option value="Plastic" style="color: #000;" onClick=selected() >Plastic</option>
-                    <option value="Cardboard" style="color: #000;" onClick=selected()>Cardboard</option>
-                    <option value="Aluminium" style="color: #000;" onClick=selected()>Aluminium</option>
+                    <option value="Plastic" style="color: #000;"  >Plastic</option>
+                    <option value="Cardboard" style="color: #000;" >Cardboard</option>
+                    <option value="Aluminium" style="color: #000;" >Aluminium</option>
                 </select>
 
 
                 <div class="form-group" style="margin-top: 5px">
                   <label for="quantity" style="text-align: left; color: white" tabindex="1">How many bottles are you recycling?</label>
                   <input type="text" id="recycle-quantity" tabindex="1" class="form-control" placeholder="Enter a Number">
->>>>>>> format
-                </div>
-                <div class="form-control">
-                  <br>
-                  <option value="Alu" style="color: #000;x" class="material-type">Aluminium</option>
-                </div>
-<<<<<<< HEAD
-                </select>
-=======
-
-
-                
-
-
-
->>>>>>> format
-                <div class="form-control" style="margin-top: 2%">
-                  <button type="submit" class="major-icons" style="text-align: right">Recycle now</button>
                 </div>
 
             </form>
@@ -239,23 +212,12 @@ document.getElementById("p").innerHTML = score
 
     <!-- Script for updating the user with the new recycle score -->
     <script>
-<<<<<<< HEAD
-      /*let type = $("#material-type");
-				let quantity = $("#recycle-quantity");
-        let recycleForm= $("#recyle-form");
-        let Username = localStorage.getItem("Username");
-        let htmlScore =
-=======
-      function selected() {
-        
-      }
       let type = $("#material-type");
 				let quantity = $("#recycle-quantity");
         let recycleForm= $("#recyle-form");
         let Username = localStorage.getItem("Username");
         let dropDown = document.getElementById("mysel");
         dropDown.options[dropDown.options.selectedIndex].selected = true;
->>>>>>> format
 
 				recycleForm.submit(function(e){
 					e.preventDefault();
@@ -298,7 +260,7 @@ document.getElementById("p").innerHTML = score
 							console.log(data);
 						}
 					});
-				});*/
+				});
     </script>
   </body>
 </html>
